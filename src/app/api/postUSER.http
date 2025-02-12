@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/users
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN
+
+
+{
+  "fullName": "Test User",
+  "email": "test@user.ru",
+  "password": "1231231"
+
+}
