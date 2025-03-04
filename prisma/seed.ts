@@ -18,13 +18,21 @@ const generateProductVariant = ({
 	doughType,
 	size
 }: ProductVariantType) => {
+	let price;
+
+	if (size === 20) price = randomNumber(190, 300);
+	else if (size === 30) price = randomNumber(300, 450);
+	else if (size === 40) price = randomNumber(450, 600);
+	else price = randomNumber(190, 600);
+
 	return {
 		productId,
-		price: randomNumber(190, 600),
+		price,
 		doughType,
 		size
 	} as Prisma.ProductVariantUncheckedCreateInput;
 };
+
 
 
 // npx prisma db seed
@@ -64,7 +72,7 @@ async function up() {
 			{
 				name: 'Пепперони фреш',
 				imageUrl:
-					'/pizzas/1.png',
+					'/pizzas/1.avif',
 				categoryId: 1,
 				ingredients: {
 					connect: ingredients.slice(0, 5)
@@ -77,7 +85,7 @@ async function up() {
 			{
 				name: 'Сырная',
 				imageUrl:
-					'/pizzas/2.png',
+					'/pizzas/4.avif',
 				categoryId: 1,
 				ingredients: {
 					connect: ingredients.slice(5, 10)
@@ -89,10 +97,10 @@ async function up() {
 			{
 				name: 'Чоризо фреш',
 				imageUrl:
-					'/pizzas/3.png',
+					'/pizzas/3.avif',
 				categoryId: 1,
 				ingredients: {
-					connect: ingredients.slice(10, 15)
+					connect: ingredients.slice(10, 20)
 				}
 			}
 	})

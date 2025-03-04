@@ -19,6 +19,6 @@ export default function RootLayout({
 		</head>
 		<body className={nunito.className}>{children}</body>
 		</html>
-		//  8 46
+		//  9 38
 	)
 }
