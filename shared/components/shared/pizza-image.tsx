@@ -24,6 +24,7 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, className, size }) => {
 				width={imageSize}
 				height={imageSize}
 				src={imageUrl}
+				priority
 				alt="logo"
 				className="relative left-[10px] top-[10px] transition-all z-10 duration-300 rounded-full object-cover max-w-full max-h-full"
 			/> 

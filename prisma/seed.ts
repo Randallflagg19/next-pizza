@@ -85,7 +85,7 @@ async function up() {
 			{
 				name: 'Сырная',
 				imageUrl:
-					'/pizzas/4.avif',
+					'/pizzas/2.avif',
 				categoryId: 1,
 				ingredients: {
 					connect: ingredients.slice(5, 10)
