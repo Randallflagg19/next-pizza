@@ -3,8 +3,12 @@
 import {create} from 'zustand'
 import {ApiClient} from '../services/api-client'
 import {getCartDetails} from '../lib'
+import {CreateCartItemValue} from '../services/dto/cart.dto'
+import {visit} from 'yaml/dist/parse/cst-visit'
+import itemAtPath = visit.itemAtPath
 
 export type CartStateItem = {
+	disabled: boolean
 	id: number;
 	quantity: number;
 	name: string;
@@ -36,10 +40,10 @@ export interface CartState {
 }
 
 export const useCartStore = create<CartState>((set,get)=>({
-	items:[],
-	error:false,
 	loading:true,
+	error:false,
 	totalAmount:0,
+	items:[],
 
 	fetchCartItems:async () => {
 		try {
@@ -69,8 +73,26 @@ export const useCartStore = create<CartState>((set,get)=>({
 
 	removeCartItem: async (id: number) => {
 		try {
-			set({loading:true,error:false})
+			set(state => ({loading: true,error: false, items: state.items.map(
+					item => item.id === id ? {...item, disabled:true}: item
+				)}))
 			const data = await ApiClient.cart.removeCartItem(id)
+			set(getCartDetails(data))
+		}catch(error){
+			console.log(error)
+			set({error:true})
+		}finally{
+			set(state=>({
+				loading:false,
+				items: state.items.map(item => ({...item, disabled:false})),
+			}))
+		}
+	},
+
+	addCartItem: async (values: CreateCartItemValue) =>{
+		try {
+			set({loading:true,error:false})
+			const data = await ApiClient.cart.addCartItem(values)
 			set(getCartDetails(data))
 		}catch(error){
 			console.log(error)
@@ -78,7 +100,5 @@ export const useCartStore = create<CartState>((set,get)=>({
 		}finally{
 			set({loading:false})
 		}
-	},
-
-	addCartItem: async (values: any) =>{}
+	}
 }))
