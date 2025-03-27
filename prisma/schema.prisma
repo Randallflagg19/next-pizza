@@ -9,9 +9,6 @@ datasource  db {
     directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
-
-
-
 // юзер
 model User {
     id Int @id @default(autoincrement())
@@ -117,7 +114,8 @@ model Cart{
 model CartItem {
     id Int @id @default(autoincrement())
 
-    cart Cart @relation(fields: [cartId], references: [id])
+    // cart Cart @relation(fields: [cartId], references: [id])
+    cart   Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
     cartId Int
 
     productVariant ProductVariant @relation(fields: [productVariantId], references: [id])
@@ -138,6 +136,7 @@ model Order {
     userId Int?
 
     token String
+
     totalAmount Int
     status OrderStatus
     paymentId String?

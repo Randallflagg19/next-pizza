@@ -1,12 +1,32 @@
-import {Container, Title, Filters, TopBar, ProductsGroupList} from '../../../shared/components/shared'
+import {
+	Container,
+	Filters,
+	ProductsGroupList,
+	Title,
+	TopBar
+} from '../../../shared/components/shared'
 import {Suspense} from 'react'
 import {findPizzas, GetSearchParams} from '../../../shared/lib/find-pizzas'
-import {SearchParams} from 'next/dist/server/request/search-params'
-
 
 export default async function Home({searchParams} : {searchParams: GetSearchParams}) {
 
-	const categories = await findPizzas(searchParams)
+	// const categories = await findPizzas(searchParams)
+
+
+	const params = await searchParams;
+
+	// Преобразуем параметры
+	const transformedParams: GetSearchParams = {
+		query: params.query,
+		sortBy: params.sortBy,
+		sizes: params.sizes ? params.sizes : undefined, // Убираем преобразование в массив
+		pizzaTypes: params.pizzaTypes ? params.pizzaTypes : undefined, // Оставляем как строку
+		ingredients: params.ingredients ? params.ingredients : undefined, // Оставляем как строку
+		priceFrom: params.priceFrom ? params.priceFrom : undefined, // Оставляем как строку
+		priceTo: params.priceTo ? params.priceTo : undefined, // Оставляем как строку
+	};
+
+	const categories = await findPizzas(transformedParams);
 
 	return (
 		<>

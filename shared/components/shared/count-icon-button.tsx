@@ -16,6 +16,7 @@ export const CountIconButton: React.FC<IconButtonProps> = ({
   disabled,type,onClick}) => {
   return (
      <Button
+        type='button'
         variant="outline"
         disabled={disabled}
         onClick={onClick}

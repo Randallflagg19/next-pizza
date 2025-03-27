@@ -1,21 +1,27 @@
 'use client'
 
 import {zodResolver} from '@hookform/resolvers/zod'
-import {CheckoutSidebar, Container, Title} from '../../../../shared/components/shared'
-import {useCart} from '../../../../shared/hooks'
-import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {
 	CheckoutAddress,
 	CheckoutCart,
-	CheckoutForm
-} from '../../../../shared/components/shared/checkout'
+	CheckoutForm,
+	CheckoutSidebar,
+	Container,
+	Title
+} from '../../../../shared/components'
+import {useCart} from '../../../../shared/hooks'
+import {FormProvider, useForm} from 'react-hook-form'
 import {
 	checkoutFormSchema,
 	CheckoutFormValues
 } from '../../../../shared/components/shared/checkout/schemas/checkout-form-schema'
+import {createOrder} from '@/app/actions'
+import {toast} from 'react-hot-toast'
+import {useState} from 'react'
 
 export default function CheckoutPage() {
-	const {totalAmount, updateItemQuantity, items, removeCartItem} = useCart()
+	const [submitting, setSubmitting] = useState(false)
+	const {totalAmount, updateItemQuantity, items, removeCartItem, loading} = useCart()
 
 	const form = useForm<CheckoutFormValues> ({
 		resolver: zodResolver(checkoutFormSchema),
@@ -34,8 +40,25 @@ export default function CheckoutPage() {
 		updateItemQuantity(id, newQuantity)
 	}
 
-	const onSubmit = (data:CheckoutFormValues) =>{
-		console.log(data)
+	const onSubmit = async (data:CheckoutFormValues) =>{
+		try {
+
+			setSubmitting(true)
+			const url = await createOrder (data)
+
+			toast('Заказ успешно оформлен! Переход на оплату...', {
+				icon: '✅'
+			})
+			if (url) {
+				location.href=url
+			}
+		} catch (error) {
+			console.log(error)
+			setSubmitting(false)
+			toast.error('Не удалось создать заказ', {
+				icon: '❌'
+			})
+		}
 	}
 
 	return (
@@ -46,13 +69,16 @@ export default function CheckoutPage() {
 							<div className='flex gap-10'>
 								<div className='flex flex-col gap-10 flex-1 mb-20'>
 									<CheckoutCart items={items}
+									              loading={loading}
 									              onClickCountButton={onClickCountButton}
 									              removeCartItem={removeCartItem}/>
-									<CheckoutForm/>
-									<CheckoutAddress/>
+									<CheckoutForm className={loading ? 'opacity-40 pointer-events-none' : ''}/>
+									<CheckoutAddress className={loading ? 'opacity-40 pointer-events-none' : ''}/>
 								</div>
 								<div className='w-[450px]'>
-									<CheckoutSidebar totalAmount={totalAmount}/>
+									<CheckoutSidebar
+										totalAmount={totalAmount}
+										loading={loading || submitting}/>
 								</div>
 							</div>
 						</form>

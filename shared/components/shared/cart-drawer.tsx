@@ -37,7 +37,7 @@ export const CartDrawer:React.FC<React.PropsWithChildren> = ({children}) => {
 						<VisuallyHidden>
 							<SheetTitle>Ваша корзина</SheetTitle>
 						</VisuallyHidden>
-						<SheetContent className='flex flex-col justify-between pb-0 bg-[#f4f1ee]'>
+						<SheetContent aria-describedby={undefined} className='flex flex-col justify-between pb-0 bg-[#f4f1ee]'>
 							<div className={cn('flex flex-col h-full', !totalAmount && 'justify-center' )}>
 								{totalAmount > 0 &&
 	                  <SheetHeader>

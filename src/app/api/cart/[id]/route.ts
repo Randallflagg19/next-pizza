@@ -38,40 +38,6 @@ export async function PATCH(req: NextRequest) {
 	}
 }
 
-
-// export async function DELETE(req:NextRequest, {params} : {params: {id:string}}){
-// 	try {
-// 		const token = req.cookies.get('cartToken')?.value
-//
-// 		if (!token) {
-// 			return NextResponse.json({error: 'Cart token not found'});
-// 		}
-//
-// 		const cartItem = await prisma.cartItem.findFirst({
-// 			where: {
-// 				id: Number(params.id),
-// 			}
-// 		})
-//
-// 		if (!cartItem) {
-// 			return  NextResponse.json({error: 'Cart item not found'});
-// 		}
-//
-// 		await prisma.cartItem.delete({
-// 			where: {
-// 				id: Number(params.id)
-// 			}
-// 		})
-//
-// 		const updateUserCart = await updateCartTotalAmount(token)
-//
-// 		return NextResponse.json(updateUserCart)
-//
-// 	}catch(error){
-// 		console.log('[CART_DELETE] Server error',error);
-// 		return NextResponse.json({message: 'не удалось удалить корзину'}, {status: 500});
-// 	}
-
 export async function DELETE(req: NextRequest) {
 	try {
 		// Получаем ID из URL
@@ -104,6 +70,53 @@ export async function DELETE(req: NextRequest) {
 		console.error('[CART_DELETE] Server error:', error);
 		return NextResponse.json({ message: 'Не удалось удалить корзину' }, { status: 500 });
 	}
-
-
 }
+
+
+// export async function DELETE(req: NextRequest) {
+// 	try {
+// 		console.time('DELETE_REQUEST'); // Засекаем общее время
+//
+// 		const pathname = req.nextUrl.pathname;
+// 		const id = pathname.split('/').pop();
+// 		if (!id || isNaN(Number(id))) {
+// 			return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+// 		}
+//
+// 		const token = req.cookies.get('cartToken')?.value;
+// 		if (!token) {
+// 			return NextResponse.json({ error: 'Cart token not found' }, { status: 400 });
+// 		}
+//
+// 		console.time('FIND_CART_ITEM'); // Засекаем поиск товара
+// 		const cartItem = await prisma.cartItem.findUnique({
+// 			where: { id: Number(id) },
+// 		});
+// 		console.timeEnd('FIND_CART_ITEM'); // Выводим время поиска
+//
+// 		if (!cartItem) {
+// 			return NextResponse.json({ error: 'Cart item не найден' }, { status: 404 });
+// 		}
+//
+// 		console.time('DELETE_CART_ITEM'); // Засекаем удаление
+// 		await prisma.cartItem.delete({
+// 			where: { id: Number(id) },
+// 		});
+// 		console.timeEnd('DELETE_CART_ITEM'); // Выводим время удаления
+//
+// 		console.time('UPDATE_CART_TOTAL'); // Засекаем обновление корзины
+// 		const updatedCart = await updateCartTotalAmount(token);
+// 		console.timeEnd('UPDATE_CART_TOTAL'); // Выводим время обновления
+//
+// 		console.timeEnd('DELETE_REQUEST'); // Выводим общее время
+//
+// 		if (!updatedCart) {
+// 			return NextResponse.json({ message: 'Корзина теперь пуста', totalAmount: 0, items: [] }, { status: 200 });
+// 		}
+//
+// 		return NextResponse.json(updatedCart);
+// 	} catch (error) {
+// 		console.error('[CART_DELETE] Server error:', error);
+// 		return NextResponse.json({ message: 'Не удалось удалить товар из корзины' }, { status: 500 });
+// 	}
+// }
