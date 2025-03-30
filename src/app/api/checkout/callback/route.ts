@@ -26,8 +26,6 @@ export async function POST(req: NextRequest) {
 		console.log(body)
 		const isSucceeded = body.object.status === 'succeeded'
 
-
-		// надо поменять статус
 		await prisma.order.update({
 			where: {
 				id: order.id,
@@ -37,7 +35,16 @@ export async function POST(req: NextRequest) {
 			}
 		})
 
-		const items = order?.items as unknown as CartItemDTO[]
+		// const items = order?.items as unknown as CartItemDTO[]
+
+		// переделан. с ошибкой
+		// const items = JSON.parse(order?.items as string) as CartItemDTO[]
+
+		const items: CartItemDTO[] = typeof order.items === 'string'
+			? JSON.parse(order.items)
+			: (order.items as unknown as CartItemDTO[]);
+
+
 
 		if (isSucceeded) {
 
@@ -49,6 +56,9 @@ export async function POST(req: NextRequest) {
 			)
 
 		}
+
+			// чтоб не ругался
+			return NextResponse.json({ success: true });
 		}
 
 	catch (error)

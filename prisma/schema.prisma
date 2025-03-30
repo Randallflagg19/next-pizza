@@ -17,7 +17,7 @@ model User {
     email String @unique
     password String
     role UserRole @default(USER)
-    verified DateTime
+    verified DateTime?
 
     provider String?
     providerId String?
@@ -159,9 +159,28 @@ model VerificationCode {
     user User @relation(fields: [userId],references: [id])
     userId Int @unique
 
-    code String @unique
+    code String
+
+    createdAt DateTime @default(now())
 
     @@unique([userId, code])
+}
+
+model StoryItem {
+    id Int @id @default(autoincrement())
+
+    storyId Int
+    story Story @relation(fields: [storyId], references: [id])
+
+    sourceUrl String
+    createdAt DateTime @default(now())
+}
+
+model Story {
+    id Int @id @default(autoincrement())
+    previewImageUrl String
+
+    items StoryItem[]
 
     createdAt DateTime @default(now())
 }

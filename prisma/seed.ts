@@ -1,5 +1,5 @@
 import {prisma} from './prisma-client'
-import {hashSync} from 'bcrypt'
+import {hashSync} from 'bcryptjs'
 import {categories, ingredients, products} from './constants'
 import { Prisma } from '@prisma/client';
 
@@ -32,8 +32,6 @@ const generateProductVariant = ({
 		size
 	} as Prisma.ProductVariantUncheckedCreateInput;
 };
-
-
 
 // npx prisma db seed
 
@@ -180,6 +178,58 @@ async function up() {
 				}
 			}
 	})
+
+	await prisma.story.createMany({
+		data: [
+			{
+				previewImageUrl: '/gustaw/1.png'
+			},
+			{
+				previewImageUrl: '/gustaw/2.png'
+			},
+			{
+				previewImageUrl: '/gustaw/3.jpeg'
+			},
+			{
+				previewImageUrl: '/gustaw/4.jpeg'
+			},
+			{
+				previewImageUrl: '/gustaw/5.jpeg'
+			},
+			{
+				previewImageUrl: '/gustaw/6.jpeg'
+			},
+			{
+				previewImageUrl: '/gustaw/7.jpeg'
+			},
+		]
+	})
+
+	await prisma.storyItem.createMany({
+		data: [
+			{ storyId: 1, sourceUrl: '/gustaw/1.png' },
+			{ storyId: 1, sourceUrl: '/gustaw/2.png' },
+			{ storyId: 1, sourceUrl: '/gustaw/3.jpeg' },
+
+			{ storyId: 2, sourceUrl: '/gustaw/2.png' },
+			{ storyId: 2, sourceUrl: '/gustaw/4.jpeg' },
+
+			{ storyId: 3, sourceUrl: '/gustaw/3.jpeg' },
+			{ storyId: 3, sourceUrl: '/gustaw/5.jpeg' },
+
+			{ storyId: 4, sourceUrl: '/gustaw/4.jpeg' },
+			{ storyId: 4, sourceUrl: '/gustaw/6.jpeg' },
+
+			{ storyId: 5, sourceUrl: '/gustaw/5.jpeg' },
+			{ storyId: 5, sourceUrl: '/gustaw/7.jpeg' },
+
+			{ storyId: 6, sourceUrl: '/gustaw/6.jpeg' },
+			{ storyId: 6, sourceUrl: '/gustaw/1.png' },
+
+			{ storyId: 7, sourceUrl: '/gustaw/7.jpeg' },
+			{ storyId: 7, sourceUrl: '/gustaw/2.png' },
+		]
+	});
 }
 
 
