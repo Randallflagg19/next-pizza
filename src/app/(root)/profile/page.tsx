@@ -17,7 +17,6 @@ export default async function ProfilePage(){
 	})
 	console.log('Полученный пользователь:', user)
 	if (!user){
-		return <div>1323</div>
 		return redirect(`/not-auth`);
 	}
 
