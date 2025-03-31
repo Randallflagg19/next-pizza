@@ -1,4 +1,4 @@
-import {Ingredient,ProductVariant} from '.prisma/client'
+import {Ingredient,ProductVariant} from '@prisma/client'
 import {mapPizzaType, PizzaSize, PizzaType} from '../constants/pizza'
 import {calcTotalPizzaPrice} from './calc-total-pizza-price'
 

@@ -1,9 +1,6 @@
 import {NextResponse} from 'next/server'
-import {User} from 'lucide-react'
 import {getUserSession} from '../../../../../shared/lib/get-user-session'
 import {prisma} from '../../../../../prisma/prisma-client'
-import {mockSession} from 'next-auth/client/__tests__/helpers/mocks'
-import user = mockSession.user
 
 export async function GET(){
 	try {
@@ -26,6 +23,7 @@ export async function GET(){
 		return NextResponse.json(data)
 	}
 	catch (error) {
+		console.log(['[ME] server error', error])
 		return NextResponse.json({message: '[USER GET] Server error'}, {status: 500});
 	}
 }

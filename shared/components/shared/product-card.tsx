@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {Title} from './title'
 import {Plus} from 'lucide-react'
 import {Button} from '../ui'
-import {Ingredient} from '.prisma/client'
+import {Ingredient} from '@prisma/client'
 
 interface Props {
 	id: number;

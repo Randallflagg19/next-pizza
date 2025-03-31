@@ -1,5 +1,5 @@
 import {pizzaSizes, PizzaType} from '../constants/pizza'
-import {ProductVariant} from '.prisma/client'
+import {ProductVariant} from '@prisma/client'
 import {Variant} from '../components/shared/group-variants'
 
 /**

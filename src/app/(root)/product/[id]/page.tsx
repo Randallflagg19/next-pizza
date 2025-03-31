@@ -1,5 +1,5 @@
 import {notFound} from 'next/navigation'
-import {Container, ProductForm} from '../../../../../shared/components/shared'
+import {Container, ProductForm} from '../../../../../shared/components'
 import {prisma} from '../../../../../prisma/prisma-client'
 import React from 'react'
 

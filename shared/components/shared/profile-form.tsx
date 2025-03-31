@@ -4,7 +4,7 @@ import React from 'react';
 import {FormProvider, useForm} from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import {formRegisterSchema, RegisterValues} from './modals/auth-modal/forms/schemas'
-import {User} from '.prisma/client'
+import {User} from '@prisma/client'
 import {toast} from 'react-hot-toast'
 import {signOut} from 'next-auth/react'
 import {Container} from './container'
@@ -62,9 +62,9 @@ export const ProfileForm:React.FC<Props> = ({data}) => {
 		            <form className='flex flex-col gap-5 w-96 mt-10'
 		              onSubmit={form.handleSubmit(onSubmit)}>
 			            <FormInput name='email' label='E-Mail' required/>
-			            <FormInput name='fullName' label='Полное имя' required/>
-			            <FormInput type='password' name='password' label='Новый пароль' required/>
-			            <FormInput type='password' name='confirmPassword' label='Повторите пароль' required/>
+			            <FormInput name='fullName' label='Полное имя' required autoComplete='off'/>
+			            <FormInput type='password' name='password' label='Новый пароль' required autoComplete='new-password'/>
+			            <FormInput type='password' name='confirmPassword' label='Повторите пароль' required autoComplete='off'/>
 
 			            <Button disabled={form.formState.isSubmitting} className='text-base mt-10' type='submit'>
 				            Сохранить

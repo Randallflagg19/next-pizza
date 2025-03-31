@@ -43,7 +43,7 @@ export async function GET(req:NextRequest) {
 
 export async function POST(req: NextRequest) {
 	try {
-		let token = req.cookies.get('cartToken')?.value || crypto.randomUUID();
+		const token = req.cookies.get('cartToken')?.value || crypto.randomUUID();
 
 		const userCart = await findOrCreateCart(token);
 		const data = (await req.json()) as CreateCartItemValue;

@@ -2,7 +2,7 @@
 import React from 'react'
 import {cn} from '../../lib/utils'
 import {useCategoryStore} from '../../store/categiry'
-import {Category} from '.prisma/client'
+import {Category} from '@prisma/client'
 
 type Props = {
 	items:Category[],

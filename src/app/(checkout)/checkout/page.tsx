@@ -19,7 +19,6 @@ import {createOrder} from '@/app/actions'
 import {toast} from 'react-hot-toast'
 import {useEffect, useState} from 'react'
 import {useSession} from 'next-auth/react'
-import {ApiRouts} from '../../../../shared/services/constants'
 import {ApiClient} from '../../../../shared/services/api-client'
 
 export default function CheckoutPage() {

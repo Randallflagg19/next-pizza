@@ -1,5 +1,6 @@
 import {CartDTO} from '../services/dto/cart.dto'
 import {calkCartItemPrice} from './calk-cart-item-price'
+import {Ingredient} from '@prisma/client'
 
 export type CartStateItem = {
 	id: number;
@@ -28,7 +29,7 @@ export const getCartDetails = (data:CartDTO):ReturnProps =>{
 		price:calkCartItemPrice(item),
 		pizzaSize: item.productVariant.size,
 		pizzaType: item.productVariant.doughType,
-		ingredients: item.ingredients.map(ingredient=>({
+		ingredients: item.ingredients.map((ingredient:Ingredient)=>({
 			name: ingredient.name,
 			price: ingredient.price
 		}))

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Ingredient} from '.prisma/client'
+import {Ingredient} from '@prisma/client'
 import {ApiClient} from '../services/api-client'
 
 export const useIngredients = () => {

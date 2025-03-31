@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server'
 import {PaymentCallbackData} from '../../../../../@types/yookassa'
 import {prisma} from '../../../../../prisma/prisma-client'
-import {$Enums} from '.prisma/client'
+import {$Enums} from '@prisma/client'
 import {CartItemDTO} from '../../../../../shared/services/dto/cart.dto'
 import OrderStatus = $Enums.OrderStatus
 import {sendEmail} from '../../../../../shared/lib'

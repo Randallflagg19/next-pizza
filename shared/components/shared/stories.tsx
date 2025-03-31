@@ -27,7 +27,6 @@ export const Stories:React.FC<Props> = ({className}) => {
 	}, [])
 
 	const onClickStory = (story: IStory) =>{
-		console.log("Clicked story:", story);
 		setSelectedStory(story)
 
 		if (story.items.length > 0){

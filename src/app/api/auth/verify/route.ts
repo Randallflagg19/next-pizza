@@ -1,5 +1,4 @@
 import {NextRequest, NextResponse} from 'next/server'
-import errorEntry from 'next/dist/server/typescript/rules/error'
 import {prisma} from '../../../../../prisma/prisma-client'
 
 export async function GET(req: NextRequest){
