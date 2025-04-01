@@ -5,10 +5,8 @@ import {
 } from '../../shared/components/shared/checkout/schemas/checkout-form-schema'
 import {cookies} from 'next/headers'
 import {prisma} from '../../prisma/prisma-client'
-// import {$Enums} from '.prisma/client'
 import {createPayment, sendEmail} from '../../shared/lib'
 import {PayOrderTemplate, VerificationUser} from '../../shared/components'
-// import OrderStatus = $Enums.OrderStatus
 import { OrderStatus } from '@prisma/client'
 
 import {Prisma} from '@prisma/client'

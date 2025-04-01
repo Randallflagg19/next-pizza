@@ -8,7 +8,6 @@ import {sendEmail} from '../../../../../shared/lib'
 import {OrderSuccessTemplate} from '../../../../../shared/components'
 
 export async function POST(req: NextRequest) {
-	console.log("Webhook called!");
 
 	try {
 		const body = (await req.json()) as PaymentCallbackData
@@ -35,29 +34,18 @@ export async function POST(req: NextRequest) {
 			}
 		})
 
-		// const items = order?.items as unknown as CartItemDTO[]
-
-		// переделан. с ошибкой
-		// const items = JSON.parse(order?.items as string) as CartItemDTO[]
-
 		const items: CartItemDTO[] = typeof order.items === 'string'
 			? JSON.parse(order.items)
 			: (order.items as unknown as CartItemDTO[]);
 
-
-
 		if (isSucceeded) {
-
-
 			await sendEmail(
 				order.email,
 				"Next Pizza / Ваш заказ оформлен 🎆",
 				await OrderSuccessTemplate({orderId: order.id, items})
 			)
-
 		}
 
-			// чтоб не ругался
 			return NextResponse.json({ success: true });
 		}
 
