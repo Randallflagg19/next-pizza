@@ -1,3 +1,5 @@
+'use client'
+
 import {useEffect} from 'react'
 import {CartStateItem, useCartStore} from '../store'
 import {CreateCartItemValue} from '../services/dto/cart.dto'

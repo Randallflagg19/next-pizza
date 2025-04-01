@@ -1,4 +1,4 @@
-import {User} from '.prisma/client'
+import {User} from '@prisma/client'
 import {axiosInstance} from './axios'
 
 export const getMe = async () => {

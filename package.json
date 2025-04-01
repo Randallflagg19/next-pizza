@@ -36,7 +36,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.474.0",
-    "next": "15.1.6",
+    "next": "15.2.4",
     "next-auth": "^4.24.11",
     "nextjs-toploader": "^3.8.16",
     "prisma": "^6.5.0",

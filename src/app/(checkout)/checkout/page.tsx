@@ -53,7 +53,7 @@ export default function CheckoutPage() {
 		if (session){
 			fetchUserInfo()
 		}
-	}, [session])
+	}, [session, form])
 
 	const onClickCountButton = (id:number, quantity:number, type: 'plus' | 'minus') =>{
 		const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
 						<form onSubmit={form.handleSubmit(onSubmit)}>
 							<div className='flex gap-10'>
 								<div className='flex flex-col gap-10 flex-1 mb-20'>
-									<CheckoutCart items={items}
+										<CheckoutCart items={items}
 									              loading={loading}
 									              onClickCountButton={onClickCountButton}
 									              removeCartItem={removeCartItem}/>

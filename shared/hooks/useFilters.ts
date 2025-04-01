@@ -1,3 +1,5 @@
+'use client'
+
 import {useSearchParams} from 'next/navigation'
 import {useSet} from 'react-use'
 import React, {useMemo} from 'react'
@@ -30,7 +32,9 @@ interface ReturnProps extends Filters {
 
 export const useFilters = (): ReturnProps => {
 
-	const searchParams = useSearchParams() as unknown as Map<keyof  QueryFilters, string>
+	// const searchParams = useSearchParams() as unknown as Map<keyof  QueryFilters, string>
+
+	const searchParams = useSearchParams()
 
 	//  Характеристики
 	const [selectedIngredients, {toggle: toggleIngredients}] = useSet(
